@@ -1,0 +1,54 @@
+# Node modules
+node_modules/
+
+# Next.js build output
+.next/
+
+# SWC cache
+.swc/
+
+# Build output (if any)
+dist/
+build/
+
+# Environment variables (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VSCode settings
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage directory used by testing tools
+coverage/
+
+# Optional: ignore test output
+*.test.ts.snap
+
+# Optional: ignore local database files
+*.local.db
+
+# Optional: ignore IDE settings
+.idea/
+
+# Optional: ignore Mac system files
+.AppleDouble
+.LSOverride
+
+# Optional: ignore Windows system files
+Desktop.ini
+$RECYCLE.BIN/
+
+# Optional: ignore npm package lock (if using yarn or pnpm)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

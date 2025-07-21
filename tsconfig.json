@@ -1,0 +1,48 @@
+{
+  // Target modern JavaScript
+  "compilerOptions": {
+    "target": "ES2017",
+    // Include DOM and latest ECMAScript features
+    "lib": ["dom", "dom.iterable", "esnext"],
+    // Allow JavaScript files for gradual migration
+    "allowJs": true,
+    // Skip type checking of declaration files
+    "skipLibCheck": true,
+    // Disable strict mode for easier migration (can be enabled later)
+    "strict": false,
+    // Do not emit output files
+    "noEmit": true,
+    // Enable ES module interoperability
+    "esModuleInterop": true,
+    // Use modern module resolution
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    // Allow importing JSON modules
+    "resolveJsonModule": true,
+    // Isolate modules for Next.js compatibility
+    "isolatedModules": true,
+    // Use React's JSX transform
+    "jsx": "preserve",
+    // Enable incremental builds for faster type checking
+    "incremental": true,
+    // Next.js plugin for enhanced type safety
+    "plugins": [
+      { "name": "next" }
+    ],
+    // Path aliases for cleaner imports
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  // Include all relevant files for type checking
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts"
+  ],
+  // Exclude node_modules from type checking
+  "exclude": ["node_modules"]
+}

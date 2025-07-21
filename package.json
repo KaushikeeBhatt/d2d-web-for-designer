@@ -1,0 +1,38 @@
+{
+  "name": "d2d-designer-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "setup-db": "node scripts/setup-db.js",
+    "test-scrapers": "node scripts/test-scrapers.js",
+    "test-design-scrapers": "node scripts/test-design-scrapers.js"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "next-auth": "^5.0.0-beta.16",
+    "@auth/mongodb-adapter": "^3.0.0",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.0",
+    "playwright": "^1.44.0",
+    "cheerio": "1.0.0-rc.12",
+    "tailwindcss": "^3.4.0",
+    "lucide-react": "^0.365.0",
+    "zod": "^3.22.4",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/react": "^18.3.0",
+    "@types/node": "^20.12.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.3"
+  }
+}
