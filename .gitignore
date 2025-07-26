@@ -1,54 +1,289 @@
-# Node modules
-node_modules/
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
 
 # Next.js build output
-.next/
+/.next/
+/out/
 
-# SWC cache
-.swc/
+# Production build
+/build
 
-# Build output (if any)
+# Misc
+.DS_Store
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local environment files
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE specific files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+*~
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# OS files
+Thumbs.db
+
+# Log files
+logs
+*.log
+/logs
+
+# Database dumps
+*.dump
+*.sql
+
+# Backup files
+*.backup
+*.bak
+
+# Package lock files (keeping only package-lock.json)
+yarn.lock
+pnpm-lock.yaml
+
+# Build artifacts
 dist/
-build/
 
-# Environment variables (never commit secrets)
+# Certificates
+*.cert
+*.key
+*.crt
+
+# Scraped data cache (for development)
+/scraped-data-cache
+
+# Local database files
+/data
+*.db
+
+# Test artifacts
+/test-reports
+/e2e-reports
+
+# Performance profiling
+*.cpuprofile
+*.heapprofile
+*.heapsnapshot
+
+# Storybook
+storybook-static/
+
+# Sentry
+.sentryclirc
+
+# Temporary upload directory
+/uploads
+/tmp
+
+# MacOS specific
+.AppleDouble
+.LSOverride
+Icon
+
+# Windows specific
+Desktop.ini
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Linux specific
+.directory
+.Trash-*
+
+# Editor directories and files
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+tags
+[._]*.un~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+sftp-config.json
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+GitHub.sublime-settings
+
+# JetBrains IDEs
+.idea/
+cmake-build-*/
+*.iws
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# dotenv environment variables file
 .env
 .env.*
 !.env.example
 
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# parcel-bundler cache
+.cache
+.parcel-cache
 
-# VSCode settings
-.vscode/
+# next.js specific
+.next/
+out/
+build/
+.vercel
 
-# OS-specific files
-.DS_Store
-Thumbs.db
+# nuxt.js build output
+.nuxt
+dist/
 
-# Coverage directory used by testing tools
-coverage/
+# Gatsby files
+.cache/
+public
 
-# Optional: ignore test output
-*.test.ts.snap
+# vuepress build output
+.vuepress/dist
 
-# Optional: ignore local database files
-*.local.db
+# Serverless directories
+.serverless/
 
-# Optional: ignore IDE settings
-.idea/
+# FuseBox cache
+.fusebox/
 
-# Optional: ignore Mac system files
-.AppleDouble
-.LSOverride
+# DynamoDB Local files
+.dynamodb/
 
-# Optional: ignore Windows system files
-Desktop.ini
-$RECYCLE.BIN/
+# TernJS port file
+.tern-port
 
-# Optional: ignore npm package lock (if using yarn or pnpm)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# MongoDB memory server
+globalConfig.json
+
+# SvelteKit build output
+.svelte-kit
+
+# End of custom ignores
