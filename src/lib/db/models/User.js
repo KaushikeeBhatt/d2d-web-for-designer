@@ -1,6 +1,6 @@
 /**
  * User Model for D2D Designer
- * Handles user data, preferences, and statistics
+ * Handles user data, preferences, authentication, and statistics
  * Compatible with NextAuth v5 and MongoDB
  */
 
@@ -15,6 +15,10 @@ const preferencesSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
     required: true
+  },
+  subscribeNewsletter: {
+    type: Boolean,
+    default: false
   },
   categories: {
     type: [String],
@@ -66,6 +70,20 @@ const statsSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
+// Social accounts schema for Auth.js
+const accountSchema = new mongoose.Schema({
+  type: { type: String },
+  provider: { type: String },
+  providerAccountId: { type: String },
+  refresh_token: { type: String },
+  access_token: { type: String },
+  expires_at: { type: Number },
+  token_type: { type: String },
+  scope: { type: String },
+  id_token: { type: String },
+  session_state: { type: String }
+}, { _id: false });
+
 // Main user schema
 const userSchema = new mongoose.Schema({
   // Core fields required by NextAuth
@@ -87,8 +105,17 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
     trim: true,
     maxlength: [100, 'Name cannot exceed 100 characters']
+  },
+  password: {
+    type: String,
+    required: function() {
+      // Password required only for non-social logins
+      return !this.accounts || this.accounts.length === 0;
+    },
+    minlength: [8, 'Password must be at least 8 characters long']
   },
   image: {
     type: String,
@@ -109,6 +136,12 @@ const userSchema = new mongoose.Schema({
   emailVerified: {
     type: Date,
     default: null
+  },
+  
+  // Social login accounts (for Auth.js)
+  accounts: {
+    type: [accountSchema],
+    default: []
   },
   
   // Custom fields for D2D Designer
@@ -152,6 +185,10 @@ const userSchema = new mongoose.Schema({
     default: true,
     required: true
   },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   role: {
     type: String,
     enum: ['user', 'admin'],
@@ -168,6 +205,7 @@ userSchema.index({ email: 1 });
 userSchema.index({ createdAt: -1 });
 userSchema.index({ 'stats.lastActive': -1 });
 userSchema.index({ isActive: 1, email: 1 });
+userSchema.index({ 'accounts.provider': 1, 'accounts.providerAccountId': 1 });
 
 // Virtual for display name
 userSchema.virtual('displayName').get(function() {
@@ -192,6 +230,11 @@ userSchema.virtual('isProfileComplete').get(function() {
     logger.error('Error checking profile completion', { error, userId: this._id });
     return false;
   }
+});
+
+// Virtual to check if user has social login
+userSchema.virtual('hasSocialLogin').get(function() {
+  return this.accounts && this.accounts.length > 0;
 });
 
 // Instance method to update last active timestamp
@@ -226,6 +269,23 @@ userSchema.methods.incrementBookmarks = async function(increment = 1) {
   }
 };
 
+// Instance method to increment login count
+userSchema.methods.incrementLoginCount = async function() {
+  try {
+    this.stats.loginCount = (this.stats.loginCount || 0) + 1;
+    this.stats.lastActive = new Date();
+    await this.save();
+    logger.info('Updated login count', { 
+      userId: this._id, 
+      newCount: this.stats.loginCount 
+    });
+    return this.stats.loginCount;
+  } catch (error) {
+    logger.error('Failed to increment login count', { error, userId: this._id });
+    throw error;
+  }
+};
+
 // Instance method to update preferences
 userSchema.methods.updatePreferences = async function(preferences) {
   try {
@@ -244,6 +304,20 @@ userSchema.methods.updatePreferences = async function(preferences) {
     return this.preferences;
   } catch (error) {
     logger.error('Failed to update preferences', { error, userId: this._id });
+    throw error;
+  }
+};
+
+// Instance method to verify email
+userSchema.methods.verifyEmail = async function() {
+  try {
+    this.emailVerified = new Date();
+    this.isVerified = true;
+    await this.save();
+    logger.info('Email verified', { userId: this._id });
+    return true;
+  } catch (error) {
+    logger.error('Failed to verify email', { error, userId: this._id });
     throw error;
   }
 };
@@ -325,6 +399,11 @@ userSchema.pre('save', async function(next) {
     // Set default preferences if not present
     if (!this.preferences) {
       this.preferences = {};
+    }
+    
+    // Update lastActive on modification
+    if (this.isModified() && !this.isNew) {
+      this.stats.lastActive = new Date();
     }
     
     logger.debug('User pre-save validation passed', { userId: this._id });
